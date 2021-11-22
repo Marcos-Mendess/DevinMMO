@@ -2,27 +2,28 @@ import axios from "axios";
 import { useContext, useEffect } from "react";
 import GameContext from "../components/Contexts/GameContext";
 
-export default function useGameCard() {
-  const { gameList, setGameList } = useContext(GameContext);
+export default function useGameDetails(id) {
+  const { gameDetails, setGameDetails } = useContext(GameContext);
 
   useEffect(() => {
     const config = {
       method: "GET",
+      params: { id },
       headers: {
         "x-rapidapi-host": "mmo-games.p.rapidapi.com",
-        "x-rapidapi-key": "b825f0fd04msh3da86559b52f59ep1454afjsn3793750c9fab",
+        "x-rapidapi-key": "abae529f1bmsh022263372e22ccep1ea366jsnd70a6d21a2bc",
       },
     };
     axios
-      .get("https://mmo-games.p.rapidapi.com/games", config)
+      .get("https://mmo-games.p.rapidapi.com/game", config)
       .then((res) => {
         console.log(res.data);
-        setGameList(res.data);
+        setGameDetails(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [setGameList]);
+  }, [id, setGameDetails]);
 
-  return { gameList };
+  return { gameDetails };
 }
